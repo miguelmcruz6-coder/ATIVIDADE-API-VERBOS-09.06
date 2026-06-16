@@ -1,0 +1,151 @@
+1) Crie um endpoint GET que retorne uma lista de produtos.  - Feito
+
+2) Crie um endpoint GET que busque um produto pelo Id.  - Feito
+
+3) Crie um endpoint GET que retorne todos os clientes.
+
+4) Crie um endpoint GET que busque um aluno pelo Id.
+
+5) Crie um endpoint GET que retorne apenas produtos com preço maior que 100.  - Feito
+
+6) Crie um endpoint GET que pesquise produtos pelo nome.  - Feito
+
+7) Crie um endpoint POST para cadastrar um novo produto.  - Feito
+
+8) Crie um endpoint POST para cadastrar um novo cliente.
+
+9) Crie um endpoint POST para cadastrar um aluno.
+
+10) Crie um endpoint POST que retorne CreatedAtAction.
+
+11) Crie um endpoint POST para adicionar um livro à lista.
+
+12) Crie um endpoint POST para cadastrar um funcionário.
+
+13) Crie um endpoint PUT para alterar o nome de um produto.  - Feito
+
+14) Crie um endpoint PUT para alterar o preço de um produto.  - Feito
+
+15) Crie um endpoint PUT para editar um cliente pelo Id.
+
+16) Crie um endpoint PUT para atualizar os dados de um aluno.
+
+17) Crie um endpoint PUT que retorne NoContent.
+
+18) Crie um endpoint PUT para alterar quantidade em estoque.
+
+19) Crie um endpoint DELETE para remover produto por Id.  - Feito
+
+20) Crie um endpoint DELETE para excluir cliente.
+
+21) Crie um endpoint DELETE para remover aluno pelo Id.
+
+22) Crie um endpoint DELETE que retorne NotFound se não existir.
+
+23) Crie um endpoint DELETE para apagar todos os registros.
+
+24) Crie um endpoint GET para listar filmes.
+
+25) Crie um endpoint POST para cadastrar filme.
+
+26) Crie um endpoint PUT para editar filme.
+
+27) Crie um endpoint DELETE para excluir filme.
+
+28) Crie um CRUD completo de livros.
+
+29) Crie um CRUD completo de carros.
+
+30) Crie um CRUD completo de jogos.
+
+
+STATUS CODE PARA FIXAR
+
+GET sucesso = 200 OK
+POST criado = 201 Created
+PUT sucesso = 204 NoContent
+DELETE sucesso = 204 NoContent
+Não encontrado = 404 NotFound
+Erro de dados = 400 BadRequest
+
+Verbos HTTP
+
+GET → Buscar informação.
+POST → Criar informação.
+PUT → Atualizar informação.
+DELETE → Apagar informação.
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Produtos ////////////////////////////
+
+1) Crie um endpoint GET que retorne uma lista de produtos.  - Feito
+
+2) Crie um endpoint GET que busque um produto pelo Id.  - Feito
+
+5) Crie um endpoint GET que retorne apenas produtos com preço maior que 100.  - Feito
+
+6) Crie um endpoint GET que pesquise produtos pelo nome.  - Feito
+
+7) Crie um endpoint POST para cadastrar um novo produto.  - Feito
+
+13) Crie um endpoint PUT para alterar o nome de um produto.  - Feito
+
+14) Crie um endpoint PUT para alterar o preço de um produto.  - Feito
+
+18) Crie um endpoint PUT para alterar quantidade em estoque.  - Feito
+
+19) Crie um endpoint DELETE para remover produto por Id.  - Feito
+
+
+//////////////////////////// Clientes ////////////////////////////
+
+3) Crie um endpoint GET que retorne todos os clientes.  - Feito
+
+8) Crie um endpoint POST para cadastrar um novo cliente.  - Feito
+
+12) Crie um endpoint POST para cadastrar um funcionário.  - Feito
+
+15) Crie um endpoint PUT para editar um cliente pelo Id.  - Feito
+
+20) Crie um endpoint DELETE para excluir cliente.  - Feito
+
+
+//////////////////////////// Alunos ////////////////////////////
+
+4) Crie um endpoint GET que busque um aluno pelo Id.  - Feito
+ 
+9) Crie um endpoint POST para cadastrar um aluno.  - Feito
+
+16) Crie um endpoint PUT para atualizar os dados de um aluno.  - Feito
+
+21) Crie um endpoint DELETE para remover aluno pelo Id.  - Feito
+
+
+//////////////////////////// Livros ////////////////////////////
+
+11) Crie um endpoint POST para adicionar um livro à lista.  - Feito
+
+28) Crie um CRUD completo de livros.  - Feito
+
+
+//////////////////////////// Filmes ////////////////////////////
+
+24) Crie um endpoint GET para listar filmes.  - Feito
+
+25) Crie um endpoint POST para cadastrar filme.  - Feito
+
+26) Crie um endpoint PUT para editar filme.  - Feito
+
+27) Crie um endpoint DELETE para excluir filme.  - Feito
+
+
+//////////////////////////// Carros ////////////////////////////
+
+29) Crie um CRUD completo de carros.  - Feito
+
+
+//////////////////////////// Jogos ////////////////////////////
+
+30) Crie um CRUD completo de jogos.
+
