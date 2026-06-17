@@ -10,8 +10,8 @@ namespace Aula_09._06._2026.Services
     {
         private static Random random = new();
 
-        // Função para Popular a lista com 3 clientes
-        public async void PopularLista(List<Livro> livros)
+        // Função para Popular a lista com 3 livros
+        public void PopularLista(List<Livro> livros)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -23,14 +23,16 @@ namespace Aula_09._06._2026.Services
             }
         }
 
-        // Função para Procurar um filme por:
-        // Título
-        // Classificação
-        // Duração
+        // Função para Procurar um livro por:
+        // Título e Páginas
         // ID
         public int ProcurarLivro(List<Livro> livros, string titulo, int paginas, int id)
         {
             int local = -1;
+            if(titulo == "" && paginas == 0 && id == 0)
+            {
+                return -2;
+            }
             for (int i = 0; i < livros.Count; i++)
             {
                 if ((titulo == livros[i].Titulo && paginas == livros[i].Paginas) || id == livros[i].Id)

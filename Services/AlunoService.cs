@@ -13,7 +13,7 @@ namespace Aula_09._06._2026.Services
         private static Random random = new();
 
         // Função para Popular a lista com 3 alunos
-        public async void PopularLista(List<Aluno> alunos)
+        public void PopularLista(List<Aluno> alunos)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -28,6 +28,10 @@ namespace Aula_09._06._2026.Services
         public int ProcurarAluno(List<Aluno> alunos, string nome, int id)
         {
             int local = -1;
+            if(nome == "" && id == 0)
+            {
+                return -2;
+            }
             for (int i = 0; i < alunos.Count; i++)
             {
                 if (nome == alunos[i].Nome || id == alunos[i].Id)

@@ -21,11 +21,11 @@ namespace Aula_09._06._2026.Controllers
         [HttpGet("Listar")]
         public IActionResult ListarLivros(bool popular)
         {
-            if(popular) services.PopularLista(dataBase.livros);
+            if (popular) services.PopularLista(dataBase.livros);
 
             string resposta = services.MostrarLista(dataBase.livros);
 
-            if(resposta == "")
+            if (resposta == "")
             {
                 return NotFound();
             }
@@ -39,19 +39,23 @@ namespace Aula_09._06._2026.Controllers
         [HttpPost("AdicionarLivro")]
         public IActionResult AdicionarLivro(string titulo, int paginas)
         {
+            Console.WriteLine("Atividade 11");
             int local = services.ProcurarLivro(dataBase.livros, titulo, paginas, 0);
-            if(local == -1)
+            switch (local)
             {
-                Livro livro = new();
-                livro.Titulo = titulo;
-                livro.Paginas = paginas;
-                livro.Id = services.IdAleatorio(dataBase.livros);
-                dataBase.livros.Add(livro);
-                return Created();
-            }
-            else
-            {
-                return BadRequest();
+                case -2:
+                    return BadRequest();
+                    
+                case -1:
+                    Livro livro = new();
+                    livro.Titulo = titulo;
+                    livro.Paginas = paginas;
+                    livro.Id = services.IdAleatorio(dataBase.livros);
+                    dataBase.livros.Add(livro);
+                    return Created();
+
+                default:
+                    return BadRequest();
             }
         }
 
@@ -59,15 +63,18 @@ namespace Aula_09._06._2026.Controllers
         public IActionResult EditarLivro(string novoTitulo, int novasPaginas, int idSelecionado)
         {
             int local = services.ProcurarLivro(dataBase.livros, "", 0, idSelecionado);
-            if(local != -1)
+            switch (local)
             {
-                dataBase.livros[local].Titulo = novoTitulo;
-                dataBase.livros[local].Paginas = novasPaginas;
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
+                case -2:
+                    return BadRequest();
+                    
+                case -1:
+                    return NotFound();
+
+                default:
+                    dataBase.livros[local].Titulo = novoTitulo;
+                    dataBase.livros[local].Paginas = novasPaginas;
+                    return NoContent();
             }
         }
 
@@ -75,14 +82,17 @@ namespace Aula_09._06._2026.Controllers
         public IActionResult DeletarLivro(string titulo, int paginas, int id)
         {
             int local = services.ProcurarLivro(dataBase.livros, titulo, paginas, id);
-            if(local != -1)
+            switch (local)
             {
-                dataBase.livros.Remove(dataBase.livros[local]);
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
+                case -2:
+                    return BadRequest();
+
+                case -1:
+                    return NotFound();
+
+                default:
+                    dataBase.livros.Remove(dataBase.livros[local]);
+                    return NoContent();
             }
         }
     }

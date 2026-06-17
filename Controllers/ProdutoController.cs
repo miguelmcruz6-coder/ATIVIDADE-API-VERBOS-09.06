@@ -69,20 +69,22 @@ namespace Aula_09._06._2026.Controllers
             {
                 if (produtoDataBase.produtos[i].Preco > 100)
                 {
-                    resposta += produtoService.MostrarUm(produtoDataBase.produtos, i);
+                    resposta += produtoService.MostrarUm(produtoDataBase.produtos, i) + "\n\n";
                 }
             }
+            resposta = resposta.Substring(0, resposta.Length - 1);
             return Ok(resposta);
         }
 
         [HttpGet("ProcurarNome")]
-        public IActionResult ProcurarNome(string nome)
+        public IActionResult ProcurarNome(string nome, int preco, int id)
         {
             Console.WriteLine("Atividade 6");
-            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nome, 0, 0);
+            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nome, preco, id);
             if (local != -1)
             {
                 string resposta = produtoService.MostrarUm(produtoDataBase.produtos, local);
+                resposta = resposta.Substring(0, resposta.Length - 1);
                 return Ok(resposta);
             }
             else
@@ -95,7 +97,7 @@ namespace Aula_09._06._2026.Controllers
         public IActionResult Cadastrar(string nome, decimal preco)
         {
             Console.WriteLine("Atividade 7");
-            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nome, 0, 0);
+            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nome, preco, 0);
             if (local == -1)
             {
                 Produto produto = new();
@@ -105,6 +107,10 @@ namespace Aula_09._06._2026.Controllers
                 produtoDataBase.produtos.Add(produto);
                 return Created();
             }
+            else if(local == -2)
+            {
+                return BadRequest();
+            }
             else
             {
                 return NotFound();
@@ -112,16 +118,19 @@ namespace Aula_09._06._2026.Controllers
         }
 
         [HttpPut("AlterarNome")]
-        public IActionResult AlterarNome(string nomeAntigo, string nomeNovo)
+        public IActionResult AlterarNome(int id, string nomeNovo)
         {
             Console.WriteLine("Atividade 13");
-            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nomeAntigo, 0, 0);
+            int local = produtoService.ProcurarProduto(produtoDataBase.produtos, "", 0, id);
 
-            if (local != -1)
+            if(local == -2)
+            {
+                return BadRequest();
+            }
+            else if (local != -1)
             {
                 produtoDataBase.produtos[local].Nome = nomeNovo;
-                string resposta = "Nome trocado com sucesso!";
-                return Ok(resposta);
+                return NoContent();
             }
             else
             {
@@ -137,8 +146,7 @@ namespace Aula_09._06._2026.Controllers
             if (local != -1)
             {
                 produtoDataBase.produtos[local].Preco = precoNovo;
-                string resposta = "Nome trocado com sucesso!";
-                return Ok(resposta);
+                return NoContent();
             }
             else
             {
@@ -153,13 +161,12 @@ namespace Aula_09._06._2026.Controllers
             int local = produtoService.ProcurarProduto(produtoDataBase.produtos, nome, 0, id);
             if(local != -1)
             {
-                string resposta = $"O produto {produtoDataBase.produtos[local].Nome} alterou seu estoque de {produtoDataBase.produtos[local].Estoque} para {novoEstoque}";
                 produtoDataBase.produtos[local].Estoque = novoEstoque;
-                return Ok(resposta);
+                return NoContent();
             }
             else
             {
-                return NoContent();
+                return NotFound();
             }
         }
 
@@ -170,9 +177,8 @@ namespace Aula_09._06._2026.Controllers
             int local = produtoService.ProcurarProduto(produtoDataBase.produtos, "", 0, id);
             if (local != -1)
             {
-                string resposta = $"Removendo {produtoDataBase.produtos[local].Nome} da Lista...\nProduto removido com sucesso!";
                 produtoDataBase.produtos.Remove(produtoDataBase.produtos[local]);
-                return Ok(resposta);
+                return NoContent();
             }
             else
             {

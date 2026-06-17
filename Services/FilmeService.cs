@@ -11,7 +11,7 @@ namespace Aula_09._06._2026.Services
         private static Random random = new();
 
         // Função para Popular a lista com 3 clientes
-        public async void PopularLista(List<Filme> filmes)
+        public void PopularLista(List<Filme> filmes)
         {
             for (int i = 0; i < 3; i++)
             {

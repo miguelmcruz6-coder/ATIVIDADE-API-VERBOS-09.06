@@ -19,7 +19,7 @@ namespace Aula_09._06._2026.Controllers
         [HttpGet("ListarClientes")]
         public IActionResult Listar(bool popular)
         {
-            Console.WriteLine("Atividade 1");
+            Console.WriteLine("Atividade 3");
             if (popular)
             {
                 clienteService.PopularLista(pessoasDataBase.pessoas);
@@ -41,62 +41,57 @@ namespace Aula_09._06._2026.Controllers
         [HttpPost("CadastrarCliente")]
         public IActionResult CadastrarCliente(string nome)
         {
-            Console.WriteLine("Atividade 7");
+            Console.WriteLine("Atividade 8");
             int local = clienteService.ProcurarCliente(pessoasDataBase.pessoas, nome, 0, 0);
-            if (local == -1)
+            switch (local)
             {
-                Cliente cliente = new();
-                cliente.Nome = nome;
-                cliente.Id = clienteService.IdAleatorio(pessoasDataBase.pessoas);
-                pessoasDataBase.pessoas.Add(cliente);
-                return Created();
-            }
-            else
-            {
-                return NotFound();
+                case -1:
+                    Cliente cliente = new();
+                    cliente.Nome = nome;
+                    cliente.Id = clienteService.IdAleatorio(pessoasDataBase.pessoas);
+                    pessoasDataBase.pessoas.Add(cliente);
+                    return Created();
+
+                default:
+                    return BadRequest();
             }
         }
 
         [HttpPost("CadastrarFuncionario")]
         public IActionResult CadastrarFuncionario(string nome)
         {
-            Console.WriteLine("Atividade 7");
+            Console.WriteLine("Atividade 12");
             int local = clienteService.ProcurarCliente(pessoasDataBase.pessoas, nome, 0, 0);
-            if (local == -1)
+            switch (local)
             {
-                Funcionario funcionario = new();
-                funcionario.Nome = nome;
-                funcionario.Id = clienteService.IdAleatorio(pessoasDataBase.pessoas);
-                pessoasDataBase.pessoas.Add(funcionario);
-                return Created();
-            }
-            else
-            {
-                return NotFound();
+                case -1:
+                    Funcionario funcionario = new();
+                    funcionario.Nome = nome;
+                    funcionario.Id = clienteService.IdAleatorio(pessoasDataBase.pessoas);
+                    pessoasDataBase.pessoas.Add(funcionario);
+                    return Created();
+
+                default:
+                    return BadRequest();
             }
         }
 
         [HttpPut("AlterarPorId")]
         public IActionResult AlterarId(string nome, int id, string novoNome)
         {
-            Console.WriteLine("Atividade 14");
-            if (id <= 100000 || id >= 1000000)
+            Console.WriteLine("Atividade 15");
+            int local = clienteService.ProcurarCliente(pessoasDataBase.pessoas, nome, id, 1);
+            switch (local)
             {
-                return NotFound();
-            }
-            else
-            {
-                int local = clienteService.ProcurarCliente(pessoasDataBase.pessoas, nome, id, 1);
-                if (local != -1)
-                {
-                    pessoasDataBase.pessoas[local].Nome = novoNome;
-                    string resposta = "Nome trocado com sucesso!";
-                    return Ok(resposta);
-                }
-                else
-                {
+                case -2:
+                    return BadRequest();
+
+                case -1:
                     return NotFound();
-                }
+
+                default:
+                    pessoasDataBase.pessoas[local].Nome = novoNome;
+                    return NoContent();
             }
         }
 
@@ -105,15 +100,17 @@ namespace Aula_09._06._2026.Controllers
         {
             Console.WriteLine("Atividade 20");
             int local = clienteService.ProcurarCliente(pessoasDataBase.pessoas, "", id, 1);
-            if (local != -1)
+            switch (local)
             {
-                string resposta = $"Removendo {pessoasDataBase.pessoas[local].Nome} da Lista...\nCliente removido com sucesso!";
-                pessoasDataBase.pessoas.Remove(pessoasDataBase.pessoas[local]);
-                return Ok(resposta);
-            }
-            else
-            {
-                return NotFound();
+                case -2:
+                    return BadRequest();
+
+                case -1:
+                    return NotFound();
+
+                default:
+                    pessoasDataBase.pessoas.Remove(pessoasDataBase.pessoas[local]);
+                    return NoContent();
             }
         }
     }

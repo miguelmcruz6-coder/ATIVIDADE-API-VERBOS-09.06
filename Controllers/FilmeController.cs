@@ -11,7 +11,7 @@ namespace Aula_09._06._2026.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class FilmeController  : ControllerBase
+    public class FilmeController : ControllerBase
     {
         FilmeDataBase dataBase = new();
         FilmeService services = new();
@@ -20,16 +20,16 @@ namespace Aula_09._06._2026.Controllers
         public IActionResult MostrarLista(bool popular)
         {
             Console.WriteLine("Atividade 24");
-            if(popular) services.PopularLista(dataBase.filmes);
+            if (popular) services.PopularLista(dataBase.filmes);
 
             string resposta = services.MostrarLista(dataBase.filmes);
 
-            if(resposta != "") 
+            if (resposta != "")
             {
                 resposta = resposta.Substring(0, resposta.Length - 1);
                 return Ok(resposta);
             }
-            else 
+            else
             {
                 return NoContent();
             }
@@ -40,19 +40,22 @@ namespace Aula_09._06._2026.Controllers
         {
             Console.WriteLine("Atividade 25");
             int local = services.ProcurarFilme(dataBase.filmes, titulo, classificacao, duracao, 0);
-            if(local != -1)
+            switch (local)
             {
-                Filme filme = new();
-                filme.Titulo = titulo;
-                filme.Classificacao = classificacao;
-                filme.Duracao = duracao;
-                filme.Id = dataBase.filmes.Count + 1;
-                dataBase.filmes.Add(filme);
-                return Created();
-            }
-            else
-            {
-                return BadRequest();
+                case -2:
+                    return BadRequest();
+
+                case -1:
+                    return NotFound();
+
+                default:
+                    Filme filme = new();
+                    filme.Titulo = titulo;
+                    filme.Classificacao = classificacao;
+                    filme.Duracao = duracao;
+                    filme.Id = dataBase.filmes.Count + 1;
+                    dataBase.filmes.Add(filme);
+                    return Created();
             }
         }
 
@@ -61,16 +64,19 @@ namespace Aula_09._06._2026.Controllers
         {
             Console.WriteLine("Atividade 26");
             int local = services.ProcurarFilme(dataBase.filmes, "", "", 0, id);
-            if(local != -1)
+            switch (local)
             {
-                dataBase.filmes[local].Titulo = novoTitulo;
-                dataBase.filmes[local].Classificacao = novaClassificacao;
-                dataBase.filmes[local].Duracao = novaDuracao;
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
+                case -2:
+                    return BadRequest();
+
+                case -1:
+                    return NotFound();
+
+                default:
+                    dataBase.filmes[local].Titulo = novoTitulo;
+                    dataBase.filmes[local].Classificacao = novaClassificacao;
+                    dataBase.filmes[local].Duracao = novaDuracao;
+                    return NoContent();
             }
         }
 
@@ -79,14 +85,17 @@ namespace Aula_09._06._2026.Controllers
         {
             Console.WriteLine("Atividade 27");
             int local = services.ProcurarFilme(dataBase.filmes, "", "", 0, id);
-            if(local != -1)
+            switch (local)
             {
-                dataBase.filmes.Remove(dataBase.filmes[local]);
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
+                case -2:
+                    return BadRequest();
+
+                case -1:
+                    return NotFound();
+
+                default:
+                    dataBase.filmes.Remove(dataBase.filmes[local]);
+                    return NoContent();
             }
         }
     }

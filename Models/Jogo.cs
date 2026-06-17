@@ -7,7 +7,7 @@ namespace Aula_09._06._2026.Models
 {
     public class Jogo
     {
-        public string Nome { get; set; } = string.Empty;
+        public string Titulo { get; set; } = string.Empty;
         public string Plataforma { get; set; } = string.Empty;
         public string Categoria { get; set; } = string.Empty;
     }

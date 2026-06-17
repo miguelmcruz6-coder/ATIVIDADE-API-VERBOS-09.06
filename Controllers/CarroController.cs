@@ -43,26 +43,29 @@ namespace Aula_09._06._2026.Controllers
                 Carro carro = new();
                 carro.Marca = marca;
                 carro.Modelo = modelo;
-                switch (ano)
+                if (ano > 1890 && ano < 2027)
                 {
-                    case 0:
-                        carro.Ano = services.AnoAleatorio(dataBase.carros);
-                        break;
-                    default:
-                        carro.Ano = ano;
-                        break;
+                    carro.Ano = services.AnoAleatorio();
                 }
-                switch (placa)
+                else
                 {
-                    case "":
-                        carro.Placa = services.PlacaAleatorio(dataBase.carros);
-                        break;
-                    default:
-                        carro.Placa = placa;
-                        break;
+                    carro.Ano = ano;
+                }
+
+                if(placa.Length != 7)
+                {
+                    carro.Placa = services.PlacaAleatorio(dataBase.carros);
+                }
+                else
+                {
+                    carro.Placa = placa;
                 }
                 dataBase.carros.Add(carro);
                 return Created();
+            }
+            else if (local == -2)
+            {
+                return BadRequest();
             }
             else
             {
@@ -81,7 +84,7 @@ namespace Aula_09._06._2026.Controllers
                 switch (novoAno)
                 {
                     case 0:
-                        dataBase.carros[local].Ano = services.AnoAleatorio(dataBase.carros);
+                        dataBase.carros[local].Ano = services.AnoAleatorio();
                         break;
                     default:
                         dataBase.carros[local].Ano = novoAno;

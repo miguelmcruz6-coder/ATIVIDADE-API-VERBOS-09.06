@@ -12,7 +12,7 @@ namespace Aula_09._06._2026.Services
         private static Random random = new();
 
         // Função para Popular uma lista com 3 produtos
-        public async void PopularLista(List<Produto> produtos)
+        public void PopularLista(List<Produto> produtos)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -29,9 +29,13 @@ namespace Aula_09._06._2026.Services
         public int ProcurarProduto(List<Produto> produtos, string nome, decimal preco, int id)
         {
             int local = -1;
+            if(nome == "" && preco == 0 && id == 0)
+            {
+                return -2;
+            }
             for (int i = 0; i < produtos.Count; i++)
             {
-                if (nome == produtos[i].Nome || preco == produtos[i].Preco || id == produtos[i].Id)
+                if ((nome == produtos[i].Nome && preco == produtos[i].Preco) || id == produtos[i].Id)
                 {
                     local = i;
                     break;

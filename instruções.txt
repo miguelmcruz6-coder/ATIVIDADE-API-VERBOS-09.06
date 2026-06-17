@@ -147,5 +147,5 @@ DELETE → Apagar informação.
 
 //////////////////////////// Jogos ////////////////////////////
 
-30) Crie um CRUD completo de jogos.
+30) Crie um CRUD completo de jogos.  - Feito
 

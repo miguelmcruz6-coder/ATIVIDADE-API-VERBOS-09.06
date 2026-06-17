@@ -10,8 +10,8 @@ namespace Aula_09._06._2026.Services
     {
         private static Random random = new();
 
-        // Função para Popular a lista com 3 clientes
-        public async void PopularLista(List<Carro> carros)
+        // Função para Popular a lista com 3 carros
+        public void PopularLista(List<Carro> carros)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -19,19 +19,22 @@ namespace Aula_09._06._2026.Services
                 carro.Marca = $"Aleatorio N°{carros.Count}";
                 carro.Modelo = $"Aleatorio N°{carros.Count}";
                 carro.Placa = $"{PlacaAleatorio(carros)}";
-                carro.Ano = AnoAleatorio(carros);
+                carro.Ano = AnoAleatorio();
                 carros.Add(carro);
             }
         }
 
-        // Função para Procurar um filme por:
-        // Título
-        // Classificação
-        // Duração
-        // ID
+        // Função para Procurar um carro por:
+        // Marca e Modelo e Ano
+        // Placa
         public int ProcurarCarro(List<Carro> carros, string marca, string modelo, int ano, string placa)
         {
             int local = -1;
+            
+            if (marca == "" && modelo == "" && ano == 0 && placa == "")
+            {
+                return -2;
+            }
             for (int i = 0; i < carros.Count; i++)
             {
                 if ((marca == carros[i].Marca && modelo == carros[i].Modelo && ano == carros[i].Ano) || placa == carros[i].Placa)
@@ -62,26 +65,15 @@ namespace Aula_09._06._2026.Services
             return lista;
         }
 
-        // Função para Criar um ID Único
-        public int AnoAleatorio(List<Carro> pessoas)
+        // Função para Criar um Ano Único
+        public int AnoAleatorio()
         {
             int ano = random.Next(1890, 2026);
-            while (true)
-            {
-                if (ProcurarCarro(pessoas, "", "", ano, "") == -1)
-                {
-                    break;
-                }
-                else
-                {
-                    ano = random.Next(1890, 2026);
-                }
-            }
             return ano;
         }
 
-        // Função para Criar um ID Único
-        public string PlacaAleatorio(List<Carro> pessoas)
+        // Função para Criar uma Placa Única com a norma Mercosul
+        public string PlacaAleatorio(List<Carro> carros)
         {
             string placa = "";
             while (true)
@@ -93,7 +85,7 @@ namespace Aula_09._06._2026.Services
                 }
                 placa += $"{random.Next(1, 9)}{LetraAleatoria()}";
                 placa += $"{random.Next(1, 9)}{random.Next(1, 9)}";
-                if (ProcurarCarro(pessoas, "", "", 0, placa) == -1)
+                if (ProcurarCarro(carros, "", "", 0, placa) == -1)
                 {
                     break;
                 }
